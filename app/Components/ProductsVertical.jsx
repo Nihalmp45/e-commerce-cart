@@ -50,7 +50,7 @@ const ProductsVertical = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
-  
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -87,9 +87,11 @@ const ProductsVertical = () => {
             <FlatList
               data={products}
               renderItem={({ item }) => (
-                <TouchableOpacity onPress={() =>
+                <TouchableOpacity
+                  onPress={() =>
                     navigation.navigate("Detail", { productId: item.id })
-                  }>
+                  }
+                >
                   <View style={styles.card}>
                     <Image
                       source={{ uri: item.featuredImage.url }}

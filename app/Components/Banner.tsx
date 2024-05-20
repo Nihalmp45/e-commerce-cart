@@ -1,28 +1,29 @@
-import { View, Text, Image,StyleSheet} from "react-native";
+import React from "react";
+import { View, Image, StyleSheet } from "react-native";
 import PagerView from "react-native-pager-view";
 
 const Banner = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <PagerView style={styles.pagerView} initialPage={0} useNext={false}>
         <View key="1">
           <Image
-            className="w-full h-80 rounded-xl  my-4"
+            style={styles.image}
             source={require("../../assets/images/Banner-1.jpg")}
           />
         </View>
         <View key="2">
-        <Image
-            className="w-full h-80 rounded-xl  my-4"
+          <Image
+            style={styles.image}
             source={require("../../assets/images/Banner-3.jpg")}
           />
-      </View>
-      <View key="3">
-        <Image
-            className="w-full h-80 rounded-xl  my-4"
+        </View>
+        <View key="3">
+          <Image
+            style={styles.image}
             source={require("../../assets/images/Banner-2.jpg")}
           />
-      </View>
+        </View>
       </PagerView>
     </View>
   );
@@ -31,7 +32,17 @@ const Banner = () => {
 export default Banner;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: 300,
+  },
   pagerView: {
     flex: 1,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 10,
+    marginVertical: 10,
   },
 });

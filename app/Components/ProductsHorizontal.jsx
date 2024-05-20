@@ -71,7 +71,6 @@ const Products = () => {
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
-  
 
   return (
     <ScrollView>
@@ -84,9 +83,11 @@ const Products = () => {
             <FlatList
               data={products}
               renderItem={({ item }) => (
-                <TouchableOpacity onPress={() =>
-                  navigation.navigate("Detail", { productId: item.id })
-                }>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("Detail", { productId: item.id })
+                  }
+                >
                   <View style={styles.card}>
                     <Image
                       source={{ uri: item.featuredImage.url }}

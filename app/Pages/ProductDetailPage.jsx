@@ -1,4 +1,3 @@
-// ProductDetail.js
 import React, { useEffect, useState } from "react";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import {
@@ -11,7 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import PagerView from "react-native-pager-view";
-import Toast from 'react-native-toast-message';
+import Toast from "react-native-toast-message";
 
 const client = new ApolloClient({
   uri: "https://mock.shop/api",
@@ -50,6 +49,7 @@ const ProductDetailPage = ({ route }) => {
   const { productId } = route.params;
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [currentVariantIndex, setCurrentVariantIndex] = useState(0);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -77,76 +77,57 @@ const ProductDetailPage = ({ route }) => {
     return <Text>Product not found</Text>;
   }
 
-  const showToast = (variant) => {
+  const showToast = () => {
+    const variant = product.variants.edges[currentVariantIndex].node;
     Toast.show({
-      type: 'success',
-      text2: `your product successfully added to cart 🎉`
+      type: "success",
+      text2: `${variant.title} successfully added to cart 🎉`,
     });
-  }
-  
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <PagerView style={styles.pagerView} initialPage={0}>
-        <View key="1">
-          <Image
-            source={{ uri: product.variants.edges[0].node.image.url }}
-            style={styles.image}
-          />
-          <View className="flex justify-between flex-row">
-            <Text style={styles.title}>
-            {product.variants.edges[0].node.title}
-            </Text>
-            <Text className="text-xs text-blue-500 mt-3">swipe right →</Text>
+      <PagerView
+        style={styles.pagerView}
+        initialPage={0}
+        onPageSelected={(e) => setCurrentVariantIndex(e.nativeEvent.position)}
+      >
+        {product.variants.edges.map((variant, index) => (
+          <View key={index}>
+            <Image
+              source={{ uri: variant.node.image.url }}
+              style={styles.image}
+            />
+            <View style={styles.variantHeader}>
+              <Text style={styles.title}>{variant.node.title}</Text>
+              {index === 0 && (
+                <Text style={styles.swipeText}>swipe right →</Text>
+              )}
+              {index === 1 && (
+                <Text style={styles.swipeText}>swipe right →</Text>
+              )}
+              {index === 2 && (
+                <Text style={styles.swipeText}>← swipe left</Text>
+              )}
+            </View>
+            <Text style={styles.price}>$ {variant.node.price.amount}</Text>
           </View>
-          <Text style={styles.price}>
-            $ {product.variants.edges[0].node.price.amount}
-          </Text>
-        </View>
-        <View key="2">
-          <Image
-            source={{ uri: product.variants.edges[1].node.image.url }}
-            style={styles.image}
-          />
-          <View className="flex justify-between flex-row">
-            <Text style={styles.title}>
-              {product.variants.edges[1].node.title}
-            </Text>
-            <Text className="text-xs text-blue-500 mt-3">swipe right →</Text>
-          </View>
-          <Text style={styles.price}>
-            $ {product.variants.edges[0].node.price.amount}
-          </Text>
-        </View>
-        <View key="3">
-          <Image
-            source={{ uri: product.variants.edges[2].node.image.url }}
-            style={styles.image}
-          />
-          <View className="flex justify-between flex-row">
-            <Text style={styles.title}>
-              {product.variants.edges[2].node.title}
-            </Text>
-            <Text className="text-xs text-blue-500 mt-3"> ← swipe left</Text>
-          </View>
-          <Text style={styles.price}>
-            $ {product.variants.edges[0].node.price.amount}
-          </Text>
-        </View>
+        ))}
       </PagerView>
       <Text style={styles.description}>{product.description}</Text>
-      <Text className="text-black font-bold mt-4 text-xl">Size</Text>
-      <View className="items-start">
-        <TouchableOpacity className=" bg-blue-400 p-5 rounded-3xl mt-2">
-          <Text className="text-white">7</Text>
+      <Text style={styles.sizeLabel}>Size</Text>
+      <View style={styles.sizeContainer}>
+        <TouchableOpacity style={styles.sizeButton}>
+          <Text style={styles.sizeText}>7</Text>
         </TouchableOpacity>
       </View>
-      <Text className="text-gray-400 font-bold mt-4 text-xl">Price</Text>
-      <View className="flex flex-row justify-between items-center">
-        <Text className="text-black font-bold text-3xl">
-          $ {product.variants.edges[0].node.price.amount}
+      <Text style={styles.priceLabel}>Price</Text>
+      <View style={styles.priceContainer}>
+        <Text style={styles.totalPrice}>
+          $ {product.variants.edges[currentVariantIndex].node.price.amount}
         </Text>
-        <TouchableOpacity className=" bg-blue-400 p-5 rounded-3xl"  onPress={showToast}>
-          <Text className="text-white text-xl ">Add To Cart</Text>
+        <TouchableOpacity style={styles.addToCartButton} onPress={showToast}>
+          <Text style={styles.addToCartText}>Add To Cart</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -156,6 +137,9 @@ const ProductDetailPage = ({ route }) => {
 export default ProductDetailPage;
 
 const styles = StyleSheet.create({
+  pagerView: {
+    flex: 1,
+  },
   container: {
     flexGrow: 1,
     padding: 16,
@@ -167,10 +151,19 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 24,
   },
+  variantHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   title: {
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 8,
+  },
+  swipeText: {
+    fontSize: 12,
+    color: "#0000ff",
+    marginTop: 3,
   },
   price: {
     fontSize: 24,
@@ -180,6 +173,44 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     color: "#9b9494",
-    marginTop: 16,
+  },
+  sizeLabel: {
+    fontSize: 18,
+  },
+  sizeButton: {
+    backgroundColor: "#1E90FF",
+    padding: 10,
+    borderRadius: 15,
+    marginTop: 8,
+    width:35,
+  },
+  sizeText: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  priceLabel: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 10,
+    color: "#9b9494",
+  },
+  priceContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 8,
+  },
+  totalPrice: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  addToCartButton: {
+    backgroundColor: "#1E90FF",
+    padding: 15,
+    borderRadius: 15,
+  },
+  addToCartText: {
+    color: "#fff",
+    fontSize: 18,
   },
 });
