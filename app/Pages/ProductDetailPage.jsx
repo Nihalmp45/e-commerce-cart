@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import PagerView from "react-native-pager-view";
+import Toast from 'react-native-toast-message';
 
 const client = new ApolloClient({
   uri: "https://mock.shop/api",
@@ -76,8 +77,13 @@ const ProductDetailPage = ({ route }) => {
     return <Text>Product not found</Text>;
   }
 
-  console.log(product);
-
+  const showToast = (variant) => {
+    Toast.show({
+      type: 'success',
+      text2: `your product successfully added to cart 🎉`
+    });
+  }
+  
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <PagerView style={styles.pagerView} initialPage={0}>
@@ -88,7 +94,7 @@ const ProductDetailPage = ({ route }) => {
           />
           <View className="flex justify-between flex-row">
             <Text style={styles.title}>
-              {product.variants.edges[0].node.title}
+            {product.variants.edges[0].node.title}
             </Text>
             <Text className="text-xs text-blue-500 mt-3">swipe right →</Text>
           </View>
@@ -120,7 +126,7 @@ const ProductDetailPage = ({ route }) => {
             <Text style={styles.title}>
               {product.variants.edges[2].node.title}
             </Text>
-            <Text className="text-xs text-blue-500 mt-3">swipe left ←</Text>
+            <Text className="text-xs text-blue-500 mt-3"> ← swipe left</Text>
           </View>
           <Text style={styles.price}>
             $ {product.variants.edges[0].node.price.amount}
@@ -139,7 +145,7 @@ const ProductDetailPage = ({ route }) => {
         <Text className="text-black font-bold text-3xl">
           $ {product.variants.edges[0].node.price.amount}
         </Text>
-        <TouchableOpacity className=" bg-blue-400 p-5 rounded-3xl">
+        <TouchableOpacity className=" bg-blue-400 p-5 rounded-3xl"  onPress={showToast}>
           <Text className="text-white text-xl ">Add To Cart</Text>
         </TouchableOpacity>
       </View>
