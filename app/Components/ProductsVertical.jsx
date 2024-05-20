@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const client = new ApolloClient({
   uri: "https://mock.shop/api",
@@ -48,7 +49,8 @@ const GET_PRODUCTS = gql`
 const ProductsVertical = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const navigation = useNavigation();
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -85,7 +87,9 @@ const ProductsVertical = () => {
             <FlatList
               data={products}
               renderItem={({ item }) => (
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() =>
+                    navigation.navigate("Detail", { productId: item.id })
+                  }>
                   <View style={styles.card}>
                     <Image
                       source={{ uri: item.featuredImage.url }}
