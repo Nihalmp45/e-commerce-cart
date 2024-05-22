@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 15,
     marginTop: 8,
-    width:35,
+    width:30,
   },
   sizeText: {
     color: "#fff",

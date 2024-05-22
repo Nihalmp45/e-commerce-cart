@@ -4,7 +4,6 @@ import Banner from "../Components/Banner";
 import Products from "../Components/ProductsHorizontal";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
-import ProductsVertical from "../Components/ProductsVertical";
 
 const Index = () => {
   return (
@@ -14,7 +13,6 @@ const Index = () => {
           <Header />
           <Banner />
           <Products />
-          <ProductsVertical />
           <Footer />
         </View>
       </ScrollView>

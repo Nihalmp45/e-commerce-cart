@@ -17,6 +17,8 @@
   "dependencies": {
     "@apollo/client": "^3.10.4",
     "@expo/vector-icons": "^14.0.0",
+    "@react-native-firebase/app": "^20.0.0",
+    "@react-native-firebase/auth": "^20.0.0",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
     "@urql/core": "^5.0.3",
@@ -29,6 +31,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.4",
     "expo-web-browser": "~13.0.3",
+    "firebase": "^10.12.1",
     "graphql": "^15.8.0",
     "graphql-request": "^7.0.1",
     "nativewind": "^2.0.11",
