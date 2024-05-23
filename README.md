@@ -1,50 +1,43 @@
-# Welcome to your Expo app 👋
+# E-Commerce Cart
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+### This is a mobile e-commerce application,The app allows users to browse products, view details, and add items to the cart.
 
-1. Install dependencies
+## Techstack =>  React Native,Firebase(authentication) Apollo Client(GraphQL),combination of Tailwind CSS(native wind) and reactnative stylesheet,React-native-pager-view,react-native-toast-message
 
-   ```bash
-   npm install
-   ```
+# Installation:
+## 1) Clone the repository
 
-2. Start the app
+ git clone https://github.com/Nihalmp45/e-commerce-cart.git
 
-   ```bash
-    npx expo start
-   ```
+## 2) Navigate to the project directory
 
-In the output, you'll find options to open the app in a
+cd e-commerce-cart
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 3) Install dependencies
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+npm install
 
-## Get a fresh project
+## 4)Start the development server
 
-When you're ready, run:
+npm expo start or npm start
 
-```bash
-npm run reset-project
-```
+## 5) Start the App: Run the app on your emulator or physical device
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+npm run android 
 
-## Learn more
 
-To learn more about developing your project with Expo, look at the following resources:
+# Project Details and Features =>
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### App contain an Home page where user can signup or sign in with mail and password.The entire system is build using firbease.In the Home Page on the top there is Header Component with a logo and contact button. Then there is a banner which is swipable to see other banners.Then fetched different product collection using Appolo client to render them both horizontally and Vertically.On click of each product it navigate to the products Details page where user can see different variants by swiping right and left.Add to cart will give a toast message back to the user indicating the variant is added to cart.
 
-## Join the community
+Product Browsing: Users can explore a list of products with images and prices.
 
-Join our community of developers creating universal apps.
+Product Details: Detailed view of each product with multiple variants and images.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Add to Cart: Easily add products to the shopping cart with a single tap which will display a toast message with product variant is added to cart.
+
+Pagination: Smooth image swiping for product variants using react-native-pager-view.
+
+GraphQL Integration: Fetch product data using Apollo Client and GraphQL from a mock API.
+
