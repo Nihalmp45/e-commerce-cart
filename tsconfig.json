@@ -14,5 +14,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "app/Components/ProductsHorizontal.jsx"  ]
+, "app/Components/ProductsHorizontal.jsx", "app/Components/Header.tsx", "app/Components/Banner.jsx", "app/Components/Footer.tsx", "app/Pages/Index.tsx"  ]
 }

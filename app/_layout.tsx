@@ -19,5 +19,5 @@ export default function RootLayout() {
       </Stack.Navigator>
       <Toast />
     </NavigationContainer>
-  );
+  );  
 }
