@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Index from "./Pages/Index";
 import Home from './Pages/Home'
 import ProductDetailPage from "./Pages/ProductDetailPage";
+import SignIn from './Pages/SignIn'
 import Toast from "react-native-toast-message";
 
 
@@ -14,6 +15,7 @@ export default function RootLayout() {
     <NavigationContainer independent={true}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="Index" component={Index} />
         <Stack.Screen name="Detail" component={ProductDetailPage} />
       </Stack.Navigator>
